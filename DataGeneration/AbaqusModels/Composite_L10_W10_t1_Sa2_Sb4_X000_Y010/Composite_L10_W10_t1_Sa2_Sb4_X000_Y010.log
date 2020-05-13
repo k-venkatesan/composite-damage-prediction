@@ -1,0 +1,35 @@
+Analysis initiated from SIMULIA established products
+Abaqus JOB Composite_L10_W10_t1_Sa2_Sb4_X000_Y010
+Abaqus 3DEXPERIENCE R2017x
+Abaqus License Manager checked out the following licenses:
+Abaqus/Standard checked out 5 tokens from Flexnet server localhost.
+<1019 out of 1024 licenses remain available>.
+Begin Analysis Input File Processor
+4/20/2019 12:49:45 AM
+Run pre.exe
+4/20/2019 12:49:49 AM
+End Analysis Input File Processor
+Begin Abaqus/Standard Analysis
+4/20/2019 12:49:49 AM
+Run standard.exe
+forrtl: error (200): program aborting due to window-CLOSE event
+Image              PC                Routine            Line        Source             
+libifcoremd.dll    00007FFBD07543E4  Unknown               Unknown  Unknown
+KERNELBASE.dll     00007FFC10EB56FD  Unknown               Unknown  Unknown
+KERNEL32.DLL       00007FFC14264034  Unknown               Unknown  Unknown
+ntdll.dll          00007FFC14AA3691  Unknown               Unknown  Unknown
+4/20/2019 12:50:42 AM
+forrtl: error (200): program aborting due to window-CLOSE event
+Image              PC                Routine            Line        Source             
+libifcoremd.dll    00007FFBD07543E4  Unknown               Unknown  Unknown
+KERNELBASE.dll     00007FFC10EB56FD  Unknown               Unknown  Unknown
+KERNEL32.DLL       00007FFC14264034  Unknown               Unknown  Unknown
+ntdll.dll          00007FFC14AA3691  Unknown               Unknown  Unknown
+Abaqus Error: Abaqus/Standard Analysis exited with an error - Please see the 
+message file for possible error messages if the file exists.
+Begin MFS->SFS and SIM cleanup
+4/20/2019 12:50:43 AM
+Run SMASimUtility.exe
+4/20/2019 12:50:43 AM
+End MFS->SFS and SIM cleanup
+Abaqus/Analysis exited with errors

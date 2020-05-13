@@ -1,0 +1,22 @@
+Analysis initiated from SIMULIA established products
+Abaqus JOB Composite_L10_W10_t1_Sa2_Sb4_X050_Y010
+Abaqus 3DEXPERIENCE R2017x
+Abaqus License Manager checked out the following licenses:
+Abaqus/Standard checked out 5 tokens from Flexnet server localhost.
+<1019 out of 1024 licenses remain available>.
+Begin Analysis Input File Processor
+4/20/2019 12:03:11 AM
+Run pre.exe
+4/20/2019 12:03:15 AM
+End Analysis Input File Processor
+Begin Abaqus/Standard Analysis
+4/20/2019 12:03:15 AM
+Run standard.exe
+4/20/2019 12:06:02 AM
+End Abaqus/Standard Analysis
+Begin MFS->SFS and SIM cleanup
+4/20/2019 12:06:04 AM
+Run SMASimUtility.exe
+4/20/2019 12:06:04 AM
+End MFS->SFS and SIM cleanup
+Abaqus JOB Composite_L10_W10_t1_Sa2_Sb4_X050_Y010 COMPLETED

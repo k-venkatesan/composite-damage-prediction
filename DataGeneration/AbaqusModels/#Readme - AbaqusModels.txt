@@ -1,0 +1,3 @@
+Each folder in this directory is dedicated to a particular model. The input files, along with other data, is present in these folders.
+
+The name of the folder gives the length (L), width (W), thickness (t), horizontal width of elliptical hole (Sa), vertical width of elliptical hole (Sb) in centimetres, along with horizontal displacement load (X) and vertical displacement load (Y) in 100s of centimetres (that is, divide the number by 100 to get the actual displacement loads in centrimetres).
