@@ -1,0 +1,5 @@
+cd \DataGeneration\\Composite_L10_W10_t1_Sa2_Sb4_X070_Y085
+call c:\simulia\commands\abaqus.bat j=Composite_L10_W10_t1_Sa2_Sb4_X070_Y085 -seq 
+
+cd \DataGeneration\\Composite_L10_W10_t1_Sa2_Sb4_X070_Y095
+call c:\simulia\commands\abaqus.bat j=Composite_L10_W10_t1_Sa2_Sb4_X070_Y095 -seq 
