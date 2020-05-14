@@ -1,7 +1,7 @@
 This directory comprises of the following folders:
 
-- Raw: Damage pattern images obtained directly from Abaqus
-- Processed: Outputs of raw damage pattern images being processed to remove white space bordering them
+- raw: Damage pattern images obtained directly from Abaqus
+- processed: Outputs of raw damage pattern images being processed to remove white space bordering them
 
 The following files are also present:
 
