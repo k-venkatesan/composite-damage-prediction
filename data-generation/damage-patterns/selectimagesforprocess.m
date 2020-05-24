@@ -14,7 +14,7 @@ X = 0;
 Y = 0;
 
 % Full directory path might be required below
-cd '\DataGeneration\DamagePatterns\Processed';
+cd '\data-generation\damage-patterns\processed';
 
 % Loop to carry out operations over the range of X and Y values
 while X <= 100

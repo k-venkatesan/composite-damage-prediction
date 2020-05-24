@@ -1,3 +1,5 @@
+# DO NOT RUN THIS FILE IN YOUR PYTHON IDE - RUN IT ON ABAQUS
+
 from abaqus import *
 from abaqusConstants import *
 import __main__
@@ -21,9 +23,8 @@ import xyPlot
 import displayGroupOdbToolset as dgo
 import connectorBehavior
 
-# Clear runfile (refer to the readme file of this folder for more details) - remember to set the directory correctly if
+# Clear runfile (refer to the README file of this folder for more details) - remember to set the directory correctly if
 # the compiler cannot find 'runfile.txt'
-
 main_directory = os.getcwd()
 runfile = open("runfile.txt", "w+")
 runfile.write('')
@@ -51,11 +52,11 @@ while X <= 100:
 
         # The '%03d'% operator is used to convert the integer into a 3-digit string (25 turns into 025)
         # This makes sure that 25 comes before 100 when arranged in alphabetical order.
-        modelName = 'Composite_L' + str(L) + '_W' + str(W) + '_t' + str(t_lam) + '_Sa' + str(Sa) + '_Sb' + str(Sb) \
+        model_name = 'Composite_L' + str(L) + '_W' + str(W) + '_t' + str(t_lam) + '_Sa' + str(Sa) + '_Sb' + str(Sb) \
                     + '_X' + '%03d'% X + '_Y' + '%03d'% Y
 
         # New model in new directory
-        new_directory = main_directory + r'\AbaqusModels\\' + modelName
+        new_directory = main_directory + r'\abaqus-models\\' + model_name
 
         # Run this iteration of the loop only if the model does not already exist
         if not os.path.exists(new_directory):
@@ -64,10 +65,10 @@ while X <= 100:
             os.chdir(new_directory)
 
             # Create model
-            mdb.Model(name=modelName, modelType=STANDARD_EXPLICIT)
+            mdb.Model(name=model_name, modelType=STANDARD_EXPLICIT)
 
             # Setup sketch
-            s1 = mdb.models[modelName].ConstrainedSketch(name='__profile__', sheetSize=20.0)
+            s1 = mdb.models[model_name].ConstrainedSketch(name='__profile__', sheetSize=20.0)
             g, v, d, c = s1.geometry, s1.vertices, s1.dimensions, s1.constraints
             s1.setPrimaryObject(option=STANDALONE)
 
@@ -87,16 +88,16 @@ while X <= 100:
                 axisPoint2=(0.0, Sb/2))
 
             # Create part
-            p = mdb.models[modelName].Part(name='CompositePlate', dimensionality=THREE_D, type=DEFORMABLE_BODY)
-            p = mdb.models[modelName].parts['CompositePlate']
+            p = mdb.models[model_name].Part(name='CompositePlate', dimensionality=THREE_D, type=DEFORMABLE_BODY)
+            p = mdb.models[model_name].parts['CompositePlate']
             p.BaseShell(sketch=s1)
             s1.unsetPrimaryObject()
-            del mdb.models[modelName].sketches['__profile__']
+            del mdb.models[model_name].sketches['__profile__']
 
             # Create partitions
             f, e, d1 = p.faces, p.edges, p.datums
             t = p.MakeSketchTransform(sketchPlane=f[0], sketchUpEdge=e[3], sketchPlaneSide=SIDE1, origin=(0.0, 0.0, 0.0))
-            s = mdb.models[modelName].ConstrainedSketch(name='__profile__', sheetSize=28.28, gridSpacing=0.7, transform=t)
+            s = mdb.models[model_name].ConstrainedSketch(name='__profile__', sheetSize=28.28, gridSpacing=0.7, transform=t)
             g, v, d, c = s.geometry, s.vertices, s.dimensions, s.constraints
             s.setPrimaryObject(option=SUPERIMPOSE)
             p.projectReferencesOntoSketch(sketch=s, filter=COPLANAR_EDGES)
@@ -143,7 +144,7 @@ while X <= 100:
             e1, d2 = p.edges, p.datums
             p.PartitionFaceBySketch(sketchUpEdge=e1[3], faces=pickedFaces, sketch=s)
             s.unsetPrimaryObject()
-            del mdb.models[modelName].sketches['__profile__']
+            del mdb.models[model_name].sketches['__profile__']
 
             # Seed edges
             e = p.edges
@@ -172,16 +173,16 @@ while X <= 100:
             p.generateMesh()
 
             # Define material
-            mdb.models[modelName].Material(name='CFRP')
-            mdb.models[modelName].materials['CFRP'].Elastic(type=LAMINA, table=((161000.0, 11000.0, 0.32,
+            mdb.models[model_name].Material(name='CFRP')
+            mdb.models[model_name].materials['CFRP'].Elastic(type=LAMINA, table=((161000.0, 11000.0, 0.32,
                                                                                  5170.0, 5170.0, 5170.0),))
-            mdb.models[modelName].materials['CFRP'].elastic.FailStress(table=((2800.0, 1700.0, 60.0, 125.0,
+            mdb.models[model_name].materials['CFRP'].elastic.FailStress(table=((2800.0, 1700.0, 60.0, 125.0,
                                                                                       90.0, 0.0, 0.0),))
-            mdb.models[modelName].materials['CFRP'].HashinDamageInitiation(table=((2800.0, 1700.0, 60.0,
+            mdb.models[model_name].materials['CFRP'].HashinDamageInitiation(table=((2800.0, 1700.0, 60.0,
                                                                                           125.0, 90.0, 90.0),))
-            mdb.models[modelName].materials['CFRP'].hashinDamageInitiation.DamageEvolution(type=ENERGY,
+            mdb.models[model_name].materials['CFRP'].hashinDamageInitiation.DamageEvolution(type=ENERGY,
                                                                                            table=((100.0, 100.0, 0.22, 0.72),))
-            mdb.models[modelName].materials['CFRP'].hashinDamageInitiation.DamageStabilization(
+            mdb.models[model_name].materials['CFRP'].hashinDamageInitiation.DamageStabilization(
                 fiberTensileCoeff=0.005, fiberCompressiveCoeff=0.005,
                 matrixTensileCoeff=0.005, matrixCompressiveCoeff=0.005)
 
@@ -195,7 +196,7 @@ while X <= 100:
             region3=regionToolset.Region(faces=faces)
             faces = f.getSequenceFromMask(mask=('[#ff ]', ), )
             region4=regionToolset.Region(faces=faces)
-            compositeLayup = mdb.models[modelName].parts['CompositePlate'].CompositeLayup(
+            compositeLayup = mdb.models[model_name].parts['CompositePlate'].CompositeLayup(
                 name='CFRPLayup', description='', elementType=SHELL,
                 offsetType=MIDDLE_SURFACE, symmetric=True,
                 thicknessAssignment=FROM_SECTION)
@@ -227,16 +228,16 @@ while X <= 100:
                 axis=AXIS_3, angle=0.0, numIntPoints=1)
 
             # Assembly
-            a = mdb.models[modelName].rootAssembly
+            a = mdb.models[model_name].rootAssembly
             a.DatumCsysByDefault(CARTESIAN)
             a.Instance(name='CompositePlate-1', part=p, dependent=ON)
 
             # Step
-            mdb.models[modelName].StaticStep(name='Load', previous='Initial',
+            mdb.models[model_name].StaticStep(name='Load', previous='Initial',
                                                     maxNumInc=1000, initialInc=1e-05, minInc=1e-20, nlgeom=ON)
 
             # Field output requests
-            mdb.models[modelName].fieldOutputRequests['F-Output-1'].setValues(
+            mdb.models[model_name].fieldOutputRequests['F-Output-1'].setValues(
                 variables=('HSNFTCRT', 'HSNFCCRT', 'HSNMTCRT', 'HSNMCCRT'),
                 layupNames=('CompositePlate-1.CFRPLayup',),
                 layupLocationMethod=SPECIFIED, outputAtPlyTop=False,
@@ -246,48 +247,48 @@ while X <= 100:
             e1 = a.instances['CompositePlate-1'].edges
             edges1 = e1.getSequenceFromMask(mask=('[#820000 ]', ), )
             region = regionToolset.Region(edges=edges1)
-            mdb.models[modelName].DisplacementBC(name='Bottom',
+            mdb.models[model_name].DisplacementBC(name='Bottom',
                 createStepName='Load', region=region, u1=UNSET, u2=-Y*0.001, u3=UNSET,
                 ur1=UNSET, ur2=UNSET, ur3=UNSET, amplitude=UNSET, fixed=OFF,
                 distributionType=UNIFORM, fieldName='', localCsys=None)
             e1 = a.instances['CompositePlate-1'].edges
             edges1 = e1.getSequenceFromMask(mask=('[#600000 ]', ), )
             region = regionToolset.Region(edges=edges1)
-            mdb.models[modelName].DisplacementBC(name='Left', createStepName='Load',
+            mdb.models[model_name].DisplacementBC(name='Left', createStepName='Load',
                 region=region, u1=-X*0.001, u2=UNSET, u3=UNSET, ur1=UNSET, ur2=UNSET,
                 ur3=UNSET, amplitude=UNSET, fixed=OFF, distributionType=UNIFORM,
                 fieldName='', localCsys=None)
             e1 = a.instances['CompositePlate-1'].edges
             edges1 = e1.getSequenceFromMask(mask=('[#100200 ]', ), )
             region = regionToolset.Region(edges=edges1)
-            mdb.models[modelName].DisplacementBC(name='Top', createStepName='Load',
+            mdb.models[model_name].DisplacementBC(name='Top', createStepName='Load',
                 region=region, u1=UNSET, u2=Y*0.001, u3=UNSET, ur1=UNSET, ur2=UNSET,
                 ur3=UNSET, amplitude=UNSET, fixed=OFF, distributionType=UNIFORM,
                 fieldName='', localCsys=None)
             e1 = a.instances['CompositePlate-1'].edges
             edges1 = e1.getSequenceFromMask(mask=('[#40100 ]', ), )
             region = regionToolset.Region(edges=edges1)
-            mdb.models[modelName].DisplacementBC(name='Right',
+            mdb.models[model_name].DisplacementBC(name='Right',
                 createStepName='Load', region=region, u1=X*0.001, u2=UNSET, u3=UNSET,
                 ur1=UNSET, ur2=UNSET, ur3=UNSET, amplitude=UNSET, fixed=OFF,
                 distributionType=UNIFORM, fieldName='', localCsys=None)
 
             # Create job
-            mdb.Job(name=modelName, model=modelName, description='',
+            mdb.Job(name=model_name, model=model_name, description='',
                     type=ANALYSIS, atTime=None, waitMinutes=0, waitHours=0, queue=None,
                     memory=90, memoryUnits=PERCENTAGE, getMemoryFromAnalysis=True,
                     explicitPrecision=SINGLE, nodalOutputPrecision=SINGLE, echoPrint=OFF,
                     modelPrint=OFF, contactPrint=OFF, historyPrint=OFF, userSubroutine='',
                     scratch='', resultsFormat=ODB, multiprocessingMode=DEFAULT, numCpus=1,
                     numGPUs=0)
-            mdb.jobs[modelName].writeInput(consistencyChecking=OFF)
+            mdb.jobs[model_name].writeInput(consistencyChecking=OFF)
 
             # Append run file
 
             os.chdir(main_directory)
             runfile = open("runfile.txt", "a+")
             runfile.write('\ncd ' + new_directory + '\n')
-            runfile.write(r'call c:\simulia\commands\abaqus.bat j=' + modelName + ' -seq \n')
+            runfile.write(r'call c:\simulia\commands\abaqus.bat j=' + model_name + ' -seq \n')
             runfile.close()
 
         Y = Y + 100/ny
