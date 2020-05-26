@@ -7,3 +7,4 @@ reduced-image/weights
 neural-network-models/hybrid-mse/weights
 neural-network-models/reduced-image/datasets
 neural-network-models/reduced-image/weights
+neural-network-models/hybrid-ssim/weights
