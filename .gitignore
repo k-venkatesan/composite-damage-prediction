@@ -1,2 +1,9 @@
 ﻿neural-network-models/standard/datasets
 neural-network-models/standard/weights
+neural-network-models/convolutional/datasets
+neural-network-models/convolutional/weights
+reduced-image/datasets
+reduced-image/weights
+neural-network-models/hybrid-mse/weights
+neural-network-models/reduced-image/datasets
+neural-network-models/reduced-image/weights
