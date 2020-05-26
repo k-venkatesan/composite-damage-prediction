@@ -1,0 +1,1 @@
+The scripts and results pertaining to the Standard, Convolutional, Reduced-Image, Hybrid (MSE-based) and Hybrid (SSIM-based) neural networks are provided here.
