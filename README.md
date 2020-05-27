@@ -1,2 +1,51 @@
 # composite-damage-prediction
 Surrogate model for generation of damage patterns on composite plates with cut-outs
+
+# Contents of Repository
+- data-generation
+  - abaqus-models 
+  - damage-patterns
+    - processed
+    - raw
+    - process.m
+    - RemoveWhiteSpace.m
+    - selectimagesforprocess.m
+  - mesh_convergence.xls
+  - model_generator.py
+  - result_generator.py
+  - runfile.txt
+- neural-network-models
+  - convolutional
+    - tuning1
+    - tuning2
+    - CNN_Architecture.py
+    - generateData.py
+    - helpers.py
+    - main.py
+  - hybrid-mse
+    - CNN_Architecture
+    - generateData
+    - helpers
+    - input2image
+  - hybrid-ssim
+    - CNN_Architecture
+    - generateData
+    - helpers
+    - input2image_ssim
+  - reduced-image
+    - tuning
+    - CNN_Architecture
+    - generateData
+    - helpers
+    - input2index
+    - splitNetwork
+  - standard
+    - tuning1
+    - tuning2
+    - generateData.py
+    - helpers.py
+    - main.py
+    - origDims.py
+- LICENSE
+- README.md
+- thesis.pdf
