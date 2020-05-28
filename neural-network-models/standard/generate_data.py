@@ -11,13 +11,14 @@ Sb = 4
 nx = 20
 ny = 20
 # Putting parameters in lists to feed to the load_images() function
-modelParams = [L, W, t_lam, Sa, Sb]
-loadSteps = [nx, ny]
+model_params = [L, W, t_lam, Sa, Sb]
+load_steps = [nx, ny]
 
-# Creating datasets and storing them as a file for loading during use - origDims are the original image dimensions,
+# Creating datasets and storing them as a file for loading during use - orig_dims are the original image dimensions,
 # required for converting the predicted outputs from a flattened array to an image
-X_set, Y_set, origDims = load_images(modelParams, loadSteps)
+X_set, Y_set, orig_dims = load_images(model_params, load_steps)
 
+# 1763 is index of reference image
 X_test = np.reshape(X_set[1763], [1, 4])
 Y_test = np.reshape(Y_set[1763], [1, 145860])
 
@@ -40,5 +41,5 @@ np.save('Y_train.npy', Y_train)
 np.save('Y_valid.npy', Y_valid)
 np.save('Y_test.npy', Y_test)
 np.save('Y_reserve.npy', Y_reserve)
-np.save('origDims.npy', origDims)
+np.save('orig_dims.npy', orig_dims)
 

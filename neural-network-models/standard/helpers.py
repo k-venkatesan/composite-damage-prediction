@@ -4,40 +4,45 @@ import matplotlib.image as mpimg
 import tensorflow as tf
 
 # Converting images from system to data sets - each image is converted to a horizontal row and stacked vertically
-def load_images(modelParams, loadSteps):
+def load_images(model_params, load_steps):
 
     # Dimensions for plate and hole in centimetres (whole major and minor axis, not half)
-    L = modelParams[0]
-    W = modelParams[1]
-    t_lam = modelParams[2]
-    Sa = modelParams[3]
-    Sb = modelParams[4]
+    L = model_params[0]
+    W = model_params[1]
+    t_lam = model_params[2]
+    Sa = model_params[3]
+    Sb = model_params[4]
+
     # No. of different non-zero loading conditions in X and Y direction
-    nx = loadSteps[0]
-    ny = loadSteps[1]
+    nx = load_steps[0]
+    ny = load_steps[1]
+
     # Load variable initialisation - the actual load in centimetres is the load variable divided by 100
     x = 0
     y = 0
 
-    # Setting operating folder to where the images are present - exact directory might be required
-    folder = r'\DataGeneration\DamagePatterns\Processed\\'
+    # Setting operating folder to where the images are present - exact directory might be required depending on installation
+    folder = r'\data-generation\damage-patterns\processed\\'
+
     # Initializing input and output data sets - lists are faster in loops than numpy arrays
     X = []
     Y = []
+
     # Loading data sets for all combinations of x and y loading
     while x <= 100:
 
         while y <= 100:
-            modelName = 'Composite_L' + str(L) + '_W' + str(W) + '_t' + str(t_lam) + '_Sa' + str(Sa) + '_Sb' + str(Sb) \
+
+            model_name = 'Composite_L' + str(L) + '_W' + str(W) + '_t' + str(t_lam) + '_Sa' + str(Sa) + '_Sb' + str(Sb) \
                         + '_X' + '%03d' % x + '_Y' + '%03d' % y
 
             # For 4 plies
             for i in range(1, 5):
 
                 # Fibre-Compression
-                imageName = 'FC_Ply' + str(i) + '_' + modelName
-                fileName = folder + imageName + '.png'
-                image = mpimg.imread(fileName)
+                image_name = 'FC_Ply' + str(i) + '_' + model_name
+                file_name = folder + image_name + '.png'
+                image = mpimg.imread(file_name)
                 Ym = np.reshape(image, (1, image.size))
                 Ym.tolist()
                 Y.append(Ym)
@@ -45,9 +50,9 @@ def load_images(modelParams, loadSteps):
                 X.append(Xm)
 
                 # Fibre-Tension
-                imageName = 'FT_Ply' + str(i) + '_' + modelName
-                fileName = folder + imageName + '.png'
-                image = mpimg.imread(fileName)
+                image_name = 'FT_Ply' + str(i) + '_' + model_name
+                file_name = folder + image_name + '.png'
+                image = mpimg.imread(file_name)
                 Ym = np.reshape(image, (1, image.size))
                 Ym.tolist()
                 Y.append(Ym)
@@ -55,9 +60,9 @@ def load_images(modelParams, loadSteps):
                 X.append(Xm)
 
                 # Matrix-Compression
-                imageName = 'MC_Ply' + str(i) + '_' + modelName
-                fileName = folder + imageName + '.png'
-                image = mpimg.imread(fileName)
+                image_name = 'MC_Ply' + str(i) + '_' + model_name
+                file_name = folder + image_name + '.png'
+                image = mpimg.imread(file_name)
                 Ym = np.reshape(image, (1, image.size))
                 Ym.tolist()
                 Y.append(Ym)
@@ -65,9 +70,9 @@ def load_images(modelParams, loadSteps):
                 X.append(Xm)
 
                 # Matrix-Tension
-                imageName = 'MT_Ply' + str(i) + '_' + modelName
-                fileName = folder + imageName + '.png'
-                image = mpimg.imread(fileName)
+                image_name = 'MT_Ply' + str(i) + '_' + model_name
+                file_name = folder + image_name + '.png'
+                image = mpimg.imread(file_name)
                 Ym = np.reshape(image, (1, image.size))
                 Ym.tolist()
                 Y.append(Ym)
@@ -82,12 +87,12 @@ def load_images(modelParams, loadSteps):
     # Convert to numpy array before returning
     return np.asarray(X), np.squeeze(np.asarray(Y)), image.shape
 
-def createModel(layer_sizes, layer_activations, weights_initializer, regularization):
+def create_model(layer_sizes, layer_activations, weights_initializer, regularization):
 
     # Extracting the total number of layers (including input)
     num_layers = len(layer_sizes)
-    # Instantialization of model, and creation of first hidden layer
-    # (which is supplied with information about the input)
+
+    # Instantialization of model, and creation of first hidden layer (which is supplied with information about the input)
     model = tf.keras.Sequential()
     model.add(layers.Dense(input_shape = (layer_sizes[0],),
                            units = layer_sizes[1],
@@ -95,6 +100,7 @@ def createModel(layer_sizes, layer_activations, weights_initializer, regularizat
                            kernel_regularizer = regularization,
                            use_bias = True))
     model.add(layers.Activation(layer_activations[1]))
+
     # Creation of other layers, including the output
     for i in range(2, num_layers):
 
