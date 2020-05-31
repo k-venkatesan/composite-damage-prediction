@@ -51,7 +51,7 @@ Surrogate model for generation of damage patterns on composite plates with cut-o
     - input2index
     - splitNetwork
   - standard
-    > Standard neural network model with datasets and final weights not included in repo due to file size constraints
+    > Standard neural network model (Python libraries, datasets and final weights not included in repo due to file size constraints)
     - tuning1
       > Training curves, predictions and log of hyperparameters used in first instance of training
     - tuning2
