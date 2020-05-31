@@ -51,12 +51,19 @@ Surrogate model for generation of damage patterns on composite plates with cut-o
     - input2index
     - splitNetwork
   - standard
+    > Standard neural network model with datasets and final weights not included in repo due to file size constraints
     - tuning1
+      > Training curves, predictions and log of hyperparameters used in first instance of training
     - tuning2
-    - generateData.py
+      > Training curves, predictions and log of hyperparameters used in second instance of training (with larger dataset)
+    - generate_data.py
+      > Convert images into useable training, validation and test sets
     - helpers.py
+      > Definitions of functions implemented in generate_data.py and helpers.py
     - main.py
-    - origDims.py
+      > Trains, validates and tests neural network
+    - orig_dims.py
+      > Original dimensions of images - used to convert predicted output into image
 - LICENSE
 - README.md
 - thesis.pdf
