@@ -8,23 +8,26 @@ W = 10
 t_lam = 1
 Sa = 2
 Sb = 4
+
 # No. of non-zero load variables in X and Y direction
 nx = 20
 ny = 20
+
 # Putting parameters in lists to feed to the load_images() function
 modelParams = [L, W, t_lam, Sa, Sb]
 loadSteps = [nx, ny]
 
 # Designating pad dimensions to get a 224 x 224 image
 paddings = ([[2, 2], [2, 1], [0, 0]])
+
 # Creating datasets and storing them as a file for loading during use
 X_set, Y_set = load_images(modelParams, loadSteps, paddings)
 
 X_test = np.reshape(X_set[1763], [1, 4])
 Y_test = np.reshape(Y_set[1763], [1, 224, 224, 3])
 
-X_remaining = np.concatenate((X_set[0:1763], X_set[1764:7056]), axis = 0)
-Y_remaining = np.concatenate((Y_set[0:1763], Y_set[1764:7056]), axis = 0)
+X_remaining = np.concatenate((X_set[0:1763], X_set[1764:7056]), axis=0)
+Y_remaining = np.concatenate((Y_set[0:1763], Y_set[1764:7056]), axis=0)
 
 shuffle = np.random.permutation(7055)
 X_remaining_shuffled = X_remaining[shuffle]

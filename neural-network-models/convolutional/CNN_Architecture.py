@@ -2,7 +2,7 @@ import tensorflow as tf
 from tensorflow.keras import layers
 
 # Definition of CNN architecture
-def createModel():
+def create_model():
 
     model = tf.keras.Sequential()
 
@@ -72,7 +72,7 @@ def createModel():
     return model
 
 # Definition of CNN model using upsampling
-def createUpSampModel():
+def create_upsamp_model():
 
     model = tf.keras.Sequential()
 
@@ -125,14 +125,14 @@ def createUpSampModel():
     # Current size = (14, 14, 128)
     model.add(layers.AveragePooling2D(2, 2))
     # Current size = (7, 7, 128)
-    model.add(layers.Flatten(name = 'Indexed_Vector'))
+    model.add(layers.Flatten(name='Indexed_Vector'))
     # Current size = 6272
 
     # Deconvolution
     # Current size = 6272
     model.add(layers.Reshape(target_shape=(7, 7, 128)))
     # Current size = (7, 7, 128)
-    model.add(layers.UpSampling2D((2, 2), interpolation = 'bilinear'))
+    model.add(layers.UpSampling2D((2, 2), interpolation='bilinear'))
     # Current size = (14, 14, 128)
     model.add(layers.Conv2DTranspose(filters=64,
                                      kernel_size=(3, 3),
@@ -140,7 +140,7 @@ def createUpSampModel():
                                      padding='same'))
     model.add(layers.Activation('relu'))
     # Current size = (14, 14, 64)
-    model.add(layers.UpSampling2D((2, 2), interpolation = 'bilinear'))
+    model.add(layers.UpSampling2D((2, 2), interpolation='bilinear'))
     # Current size = (28, 28, 64)
     model.add(layers.Conv2DTranspose(filters=32,
                                      kernel_size=(3, 3),
@@ -148,7 +148,7 @@ def createUpSampModel():
                                      padding='same'))
     model.add(layers.Activation('relu'))
     # Current size = (28, 28, 32)
-    model.add(layers.UpSampling2D((2, 2), interpolation = 'bilinear'))
+    model.add(layers.UpSampling2D((2, 2), interpolation='bilinear'))
     # Current size = (56, 56, 32)
     model.add(layers.Conv2DTranspose(filters=16,
                                      kernel_size=(3, 3),
@@ -156,7 +156,7 @@ def createUpSampModel():
                                      padding='same'))
     model.add(layers.Activation('relu'))
     # Current size = (56, 56, 16)
-    model.add(layers.UpSampling2D((2, 2), interpolation = 'bilinear'))
+    model.add(layers.UpSampling2D((2, 2), interpolation='bilinear'))
     # Current size = (112, 112, 16)
     model.add(layers.Conv2DTranspose(filters=8,
                                      kernel_size=(3, 3),
@@ -164,7 +164,7 @@ def createUpSampModel():
                                      padding='same'))
     model.add(layers.Activation('relu'))
     # Current size = (112, 112, 8)
-    model.add(layers.UpSampling2D((2, 2), interpolation = 'bilinear'))
+    model.add(layers.UpSampling2D((2, 2), interpolation='bilinear'))
     # Current size = (224, 224, 8)
     model.add(layers.Conv2DTranspose(filters=4,
                                      kernel_size=(3, 3),
@@ -182,7 +182,7 @@ def createUpSampModel():
     return model
 
 # Model initialisation to reduce images to feature index based on convolution weights present in 'model1'
-def indexImages(model1):
+def index_images(model1):
 
     model = tf.keras.Sequential()
 
@@ -241,13 +241,13 @@ def indexImages(model1):
     # Current size = (14, 14, 128)
     model.add(layers.AveragePooling2D(2, 2))
     # Current size = (7, 7, 128)
-    model.add(layers.Flatten(name = 'Indexed_Vector'))
+    model.add(layers.Flatten(name='Indexed_Vector'))
     # Current size = 6272
 
     return model
 
 # Model initialisation to convert feature index to image using deconvolution weights from 'model1'
-def genImages(model1):
+def gen_images(model1):
 
     model = tf.keras.Sequential()
     model.add(layers.InputLayer(input_shape=(1, 6272)))
@@ -255,7 +255,7 @@ def genImages(model1):
     # Current size = 6272
     model.add(layers.Reshape(target_shape=(7, 7, 128)))
     # Current size = (7, 7, 128)
-    model.add(layers.UpSampling2D((2, 2), interpolation = 'bilinear'))
+    model.add(layers.UpSampling2D((2, 2), interpolation='bilinear'))
     # Current size = (14, 14, 128)
     model.add(layers.Conv2DTranspose(filters=64,
                                      kernel_size=(3, 3),
@@ -264,7 +264,7 @@ def genImages(model1):
                                      weights=model1.layers[20].get_weights()))
     model.add(layers.Activation('relu'))
     # Current size = (14, 14, 64)
-    model.add(layers.UpSampling2D((2, 2), interpolation = 'bilinear'))
+    model.add(layers.UpSampling2D((2, 2), interpolation='bilinear'))
     # Current size = (28, 28, 64)
     model.add(layers.Conv2DTranspose(filters=32,
                                      kernel_size=(3, 3),
@@ -273,7 +273,7 @@ def genImages(model1):
                                      weights=model1.layers[23].get_weights()))
     model.add(layers.Activation('relu'))
     # Current size = (28, 28, 32)
-    model.add(layers.UpSampling2D((2, 2), interpolation = 'bilinear'))
+    model.add(layers.UpSampling2D((2, 2), interpolation='bilinear'))
     # Current size = (56, 56, 32)
     model.add(layers.Conv2DTranspose(filters=16,
                                      kernel_size=(3, 3),
@@ -282,7 +282,7 @@ def genImages(model1):
                                      weights=model1.layers[26].get_weights()))
     model.add(layers.Activation('relu'))
     # Current size = (56, 56, 16)
-    model.add(layers.UpSampling2D((2, 2), interpolation = 'bilinear'))
+    model.add(layers.UpSampling2D((2, 2), interpolation='bilinear'))
     # Current size = (112, 112, 16)
     model.add(layers.Conv2DTranspose(filters=8,
                                      kernel_size=(3, 3),
@@ -291,7 +291,7 @@ def genImages(model1):
                                      weights=model1.layers[29].get_weights()))
     model.add(layers.Activation('relu'))
     # Current size = (112, 112, 8)
-    model.add(layers.UpSampling2D((2, 2), interpolation = 'bilinear'))
+    model.add(layers.UpSampling2D((2, 2), interpolation='bilinear'))
     # Current size = (224, 224, 8)
     model.add(layers.Conv2DTranspose(filters=4,
                                      kernel_size=(3, 3),
@@ -311,7 +311,7 @@ def genImages(model1):
     return model
 
 # Model initialisation of Hybrid Network
-def denseUp():
+def dense_up():
 
     model = tf.keras.Sequential()
 
