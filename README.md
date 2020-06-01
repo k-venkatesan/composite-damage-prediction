@@ -27,12 +27,19 @@ Surrogate model for generation of damage patterns on composite plates with cut-o
     > To be saved and run as .bat file after being modified by model_generator.py in order to generate .odb files from .inp files
 - neural-network-models
   - convolutional
+    > Convolutional neural network model (Python libraries, datasets and final weights not included in repo due to file size constraints)
     - tuning1
+      > Training curves, predictions and log of hyperparameters used in first instance of training
     - tuning2
-    - CNN_Architecture.py
-    - generateData.py
+      > Training curves, predictions and log of hyperparameters used in second instance of training (with larger dataset)
+    - cnn_architecture.py
+      > Definitions of different CNN architecture variants
+    - generate_data.py
+      > Convert images into useable training, validation and test sets
     - helpers.py
+      > Definitions of functions implemented in generate_data.py, cnn_architecture.py and main.py
     - main.py
+      > Trains, validates and tests neural network
   - hybrid-mse
     - CNN_Architecture
     - generateData
