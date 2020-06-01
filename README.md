@@ -66,7 +66,7 @@ Surrogate model for generation of damage patterns on composite plates with cut-o
     - generate_data.py
       > Convert images into useable training, validation and test sets
     - helpers.py
-      > Definitions of functions implemented in generate_data.py and helpers.py
+      > Definitions of functions implemented in generate_data.py and main.py
     - main.py
       > Trains, validates and tests neural network
     - orig_dims.py
