@@ -37,26 +37,47 @@ Surrogate model for generation of damage patterns on composite plates with cut-o
     - generate_data.py
       > Convert images into useable training, validation and test sets
     - helpers.py
-      > Definitions of functions implemented in generate_data.py, cnn_architecture.py and main.py
+      > Definitions of functions used in generate_data.py, cnn_architecture.py and main.py
     - main.py
       > Trains, validates and tests neural network
   - hybrid-mse
-    - CNN_Architecture
-    - generateData
-    - helpers
-    - input2image
-  - hybrid-ssim
-    - CNN_Architecture
-    - generateData
-    - helpers
-    - input2image_ssim
-  - reduced-image
+    > Hybrid neural network model based on the MSE loss function (Python libraries, datasets and final weights not included in repo due to file size constraints)
     - tuning
-    - CNN_Architecture
-    - generateData
-    - helpers
-    - input2index
-    - splitNetwork
+      > Training curves, predictions and log of hyperparameters used in training
+    - CNN_Architecture.py
+      > Definitions of different CNN architecture variants
+    - generateData.py
+      > Convert images into useable training, validation and test sets
+    - helpers.py
+      > Definitions of functions used in CNN_Architecture.py, generateData.py and index2index.py
+    - input2index.py
+      > Convert input parameters into autoencoder vector
+  - hybrid-ssim
+    > Hybrid neural network model based on the SSIM loss function (Python libraries, datasets and final weights not included in repo due to file size constraints)
+    - tuning
+      > Training curves, predictions and log of hyperparameters used in training
+    - CNN_Architecture.py
+      > Definitions of different CNN architecture variants
+    - generateData.py
+      > Convert images into useable training, validation and test sets
+    - helpers.py
+      > Definitions of functions used in CNN_Architecture.py, generateData.py and index2index_ssim.py
+    - input2index_ssim.py
+      > Convert input parameters into autoencoder vector
+  - reduced-image
+    > Reduced-image neural network model (Python libraries, datasets and final weights not included in repo due to file size constraints)
+    - tuning
+      > Training curves, predictions and log of hyperparameters used in training
+    - CNN_Architecture.py
+      > Definitions of different CNN architecture variants
+    - generateData.py
+      > Convert images into useable training, validation and test sets
+    - helpers.py
+      > Definitions of functions used in CNN_Architecture.py, generateData.py, index2index.py and splitNetwork.py
+    - input2index.py
+      > Convert input parameters into autoencoder vector
+    - splitNetwork.py
+      > Separate the convolution and deconvolution parts of the CNN
   - standard
     > Standard neural network model (Python libraries, datasets and final weights not included in repo due to file size constraints)
     - tuning1
@@ -66,7 +87,7 @@ Surrogate model for generation of damage patterns on composite plates with cut-o
     - generate_data.py
       > Convert images into useable training, validation and test sets
     - helpers.py
-      > Definitions of functions implemented in generate_data.py and main.py
+      > Definitions of functions used in generate_data.py and main.py
     - main.py
       > Trains, validates and tests neural network
     - orig_dims.py
