@@ -50,8 +50,8 @@ Surrogate model for generation of damage patterns on composite plates with cut-o
       > Convert images into useable training, validation and test sets
     - helpers.py
       > Definitions of functions used in CNN_Architecture.py, generateData.py and index2index.py
-    - input2index.py
-      > Convert input parameters into autoencoder vector
+    - input2image.py
+      > Trains, validates and tests neural network
   - hybrid-ssim
     > Hybrid neural network model based on the SSIM loss function (Python libraries, datasets and final weights not included in repo due to file size constraints)
     - tuning
@@ -62,8 +62,8 @@ Surrogate model for generation of damage patterns on composite plates with cut-o
       > Convert images into useable training, validation and test sets
     - helpers.py
       > Definitions of functions used in CNN_Architecture.py, generateData.py and index2index_ssim.py
-    - input2index_ssim.py
-      > Convert input parameters into autoencoder vector
+    - input2image_ssim.py
+      > Trains, validates and tests neural network
   - reduced-image
     > Reduced-image neural network model (Python libraries, datasets and final weights not included in repo due to file size constraints)
     - tuning
@@ -75,7 +75,7 @@ Surrogate model for generation of damage patterns on composite plates with cut-o
     - helpers.py
       > Definitions of functions used in CNN_Architecture.py, generateData.py, index2index.py and splitNetwork.py
     - input2index.py
-      > Convert input parameters into autoencoder vector
+      > Trains, validates and tests neural network against CNN autoencoder using fixed deconvolution weights to obtain final result
     - splitNetwork.py
       > Separate the convolution and deconvolution parts of the CNN
   - standard
@@ -97,10 +97,23 @@ Surrogate model for generation of damage patterns on composite plates with cut-o
 - thesis.pdf
 
 # Reproduction Guidelines
-This section describes how the results obtained in this work can be reproduced.
+This section describes how the results obtained in this work can be reproduced from start to finish. If you instead wish to skip certain steps, feel free to make use of the intermediate artifacts available in the repository and apply the relevant steps to those.
 
 ## Data Generation
 1. Attach `model_generator.py` as a script in Abaqus - this populates `runfile.txt` with commands for the next step
 1. Execute `runfile.txt` as a .bat script to generate .odb files for each FEM model
 1. Attach `result_generator.py` as a script in Abaqus - this processes all the FEM models and saves the results as images
-1. Run selectimagesforprocess.m using Matlab to 'clean' all images and prepare them for being used to train neural networks
+1. Run `selectimagesforprocess.m` using Matlab to 'clean' all images and prepare them for being used to train neural networks
+
+## Neural Network Training
+These generic steps can be followed for training any of the described neural network types.
+
+1. Use `generateData.py` (or `generate_data.py`) to convert the cleaned up images into vectorised training, validation and test data sets (in the form of numpy arrays)
+1. Train and validate the neural network:
+  - Standard and convolutional neural networks:
+      1. Run `main.py` to train the neural network, and generate validation/test set results
+  - Reduced-image neural network:
+      1. Train a convolutional neural network first so that the resulting autoencoder values and deconvolution weights can be used in the next step
+      1. Run `input2index.py` to train (and generate validation/test data) the reduced-image neural network against the autoencoder from which the final result is obtained using the available deconvolution weights
+  - Hybrid neural networks:
+      1. Run `input2image.py` (or `index2image_ssim.py`) to train the hybrid neural network and generate validation/test set results
