@@ -95,3 +95,12 @@ Surrogate model for generation of damage patterns on composite plates with cut-o
 - LICENSE
 - README.md
 - thesis.pdf
+
+# Reproduction Guidelines
+This section describes how the results obtained in this work can be reproduced.
+
+## Data Generation
+1. Attach `model_generator.py` as a script in Abaqus - this populates `runfile.txt` with commands for the next step
+1. Execute `runfile.txt` as a .bat script to generate .odb files for each FEM model
+1. Attach `result_generator.py` as a script in Abaqus - this processes all the FEM models and saves the results as images
+1. Run selectimagesforprocess.m using Matlab to 'clean' all images and prepare them for being used to train neural networks
